@@ -1,3 +1,59 @@
 body {
-  padding:10px;
+  /*padding:10px;
+  padding-top:0px;*/
+  padding:1em;
+}
+img {
+    max-width: 75px;
+    max-height: 75px;
+}
+div.album-art{
+    text-align:center;
+}
+select.form-group {
+
+}
+label.explicit{
+    font-size:1.3em;
+    padding:auto;
+    margin:auto;
+}
+input.explicit{
+    padding:auto;
+    margin:auto;
+}
+div.explicit{
+    text-align:right;
+}
+div.header{
+    width:100%;
+    text-align:center;
+    padding-bottom:1em;
+}
+img.header{
+    width:100%;
+}
+img{
+    border-radius:1em;
+}
+@media screen and (min-width:325px){ /*xs*/
+    img {
+        max-width: 300px;
+        max-height: 300px;
+    }
+}
+/*@media screen and (min-width:992px){ /*md*/
+
+/*}*/
+@media screen and (min-width:768px){ /*sm*/
+    img {
+        max-width: 630px;
+        max-height: 630px;
+    }
+}
+@media screen and (min-width:992px){ /*md*/
+
+}
+@media screen and (min-width:1200px){ /*lg*/
+
 }
