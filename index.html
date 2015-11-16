@@ -12,6 +12,8 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.js"></script>
 
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+
 
 	<!-- Read scripts -->
 	<script src="app.js"></script>
@@ -31,48 +33,94 @@
 		<!-- Form -->
 		<form class="container" name="songForm">
 			<!--possible alternate location for alnum art -->
-			<div class = "album-art">
+			<div class = "album-art" id="albumArt">
 				<!--will use $scope.art function in app.js to set $scope.albumArt = to track.album.images[0]-->
 				<img ng-src="{{albumArt}}" />
 				<!--<p ng-model = "{{albumArt}}" ></p>-->
 			</div>
 			<div class="form-group searchBox">
 				<label> </label>
-				<input name="search searchBox" placeholder="Enter search terms.." ng-model="track" class="form-control" id="searchForm"></input>
+				<input name="search searchBox" placeholder="Enter search terms.." ng-model="track" class="form-control" id="searchForm" required></input>
+				<span style="color:red" ng-show="track.$dirty && track.$invalid">
+					<span ng-show="track.$error.required"> Please enter a search term and hit Submit </span>
+				</span>
 			</div>
 			<div class = "row">
 				<div class="form-group searchButton col-xs-3 col-sm-3 col-md-3 col-lg-3">
-					<button ng-disabled="songForm.search.$invalid" class="btn btn-primary searchButton" ng-click="getSongs()" type="submit" id="button">Submit</button>
+					<button ng-disabled="songForm.search.$invalid" class="btn btn-primary searchButton" ng-click="getSongs()" type="submit" id="button" >Submit</button>
+					<!--onclick="window.location.href='#table'"-->
 				</div>
 				<div class="form-group searchType col-xs-4 col-sm-4 col-md-4 col-lg-4">
-					<select class="form-control">
+					<!--<select ng-model="searchBy" class="form-control">
 						<option value="title">- Song Title</options>
 						<option value="artist">- Artist Name</option>
 						<option value="album">- Album Title</option>
 						<option value="genre">- Album Genre</option>
 						<option value="date">- Release Year</option>
-					</select>
+					</select>-->
+					<select ng-model="search" class="form-control searchBy" ng-options="s.type for s in searchBy"></select>
 				</div>
 				<div class="form-group explicit col-xs-5 col-sm-5 col-md-5 col-lg-5">
 					<label class="checkbox-inline explicit">
-  						<input type="checkbox" id="explicit" value="explicit" class="explicit"> Exclude Explicit Songs
+  						<input ng-model="search.explicit" type="checkbox" id="explicit"  class="explicit"> Exclude Explicit Songs
 					</label>
 				</div>
 			</div>
 		</form>
 
 		<!-- Results -->
-		<div class="container-fixed">
+		<div class="container-fixed" id="table">
 			<!-- album art initally went here -->
-
 			<div class="help-block">
 				<span ng-show="tracks.length>0">Click to sample</span>
 				<span ng-show="currentSong && !audioObject.paused">(playing)</span>
 			</div>
-			<ul>
-				<li ng-repeat="track in tracks" class="" ng-click="play(track.preview_url); art(track.album.images[0].url, track.album.images[1].url, track.album.images[2].url)"
-				title="{{track.name}}">{{track.name + ', by ' + track.artists[0].name}}</li>
-			</ul>
+			<!--<ul>
+				<li ng-repeat="track in tracks | filter: (search.explicit || '') && (!search.explicit || false) && search" class="" ng-click="play(track.preview_url); art(track.album.images[0].url, track.album.images[1].url, track.album.images[2].url)"
+				title="{{track.name}}">{{track.name + ', by ' + track.artists[0].name + ', from ' + track.album.name + ', explicit: ' + track.explicit }}</li>
+			</ul>-->
+			<table ng-show="tracks.length>0" class="table table-striped table-hover">
+				<thead>
+					<td ng-click="sortType = 'name'; sortReverse = !sortReverse; move()" title="Sort by Track Title" ><a >Track Title
+							<span ng-show="sortType == 'name' && !sortReverse" class="fa fa-caret-down"></span>
+							<span ng-show="sortType == 'name' && sortReverse" class="fa fa-caret-up"></span>
+						</a>
+					</td>
+					<!--onclick="window.location.href='#table'"-->
+
+					<td ng-click="sortType = 'artists[0].name'; sortReverse = !sortReverse; move()" title="Sort by Artist Name" ><a >Artist Name
+							<span ng-show="sortType == 'artists[0].name' && !sortReverse" class="fa fa-caret-down"></span>
+							<span ng-show="sortType == 'artists[0].name' && sortReverse" class="fa fa-caret-up"></span>
+						</a>
+					</td>
+
+					<td ng-click="sortType = 'album.name'; sortReverse = !sortReverse; move()" title="Sort by Album Title" ><a  >Album Title
+							<span ng-show="sortType == 'album.name' && !sortReverse" class="fa fa-caret-down"></span>
+							<span ng-show="sortType == 'album.name' && sortReverse" class="fa fa-caret-up"></span>
+						</a>
+					</td>
+					<!--onclick="window.location.href='#table'"-->
+
+					<td ng-click="sortType = 'popularity'; sortReverse = !sortReverse; move()" title="Sort by Popularity" ><a  > Popularity
+							<span ng-show="sortType == 'popularity' && !sortReverse" class="fa fa-caret-down"></span>
+							<span ng-show="sortType == 'popularity' && sortReverse" class="fa fa-caret-up"></span>
+						</a>
+					</td>
+				</thead>
+				<tbody>
+					<tr ng-repeat="track in tracks | filter: (search.explicit || '') && (!search.explicit || false) && search | orderBy:sortType:sortReverse">
+						<td ng-click="play(track.preview_url); art(track.album.images[0].url, track.album.images[1].url, track.album.images[2].url)" title="Click to sample {{track.name}}." > {{track.name}}</td>
+						<!--onclick="window.location.href='#albumArt'"-->
+						<td ng-click="artist(track.artists[0].name); getSongs()" title="Click to view other tracks by {{track.artists[0].name}}."  >{{track.artists[0].name}}</td>
+						<td ng-click="album(track.album.name); getSongs()" title="Click to view other tracks from {{track.album.name}}."
+						>{{track.album.name}}</td>
+						<td>{{track.popularity}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class = "footer">
+			<!-- <img class = "footer" src="img/footer.jpg" /> -->
 		</div>
 	</div>
 </body>

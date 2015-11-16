@@ -14,16 +14,20 @@ select.form-group {
 
 }
 label.explicit{
-    font-size:1.3em;
+    font-size:0.8em;
     padding:auto;
     margin:auto;
+    height:auto;
 }
 input.explicit{
     padding:auto;
     margin:auto;
+    height:auto;
 }
 div.explicit{
     text-align:right;
+    /*text-align:left;*/
+    height:auto;
 }
 div.header{
     width:100%;
@@ -36,24 +40,115 @@ img.header{
 img{
     border-radius:1em;
 }
+img.footer{
+    margin-top:4em;
+}
+select.form-control.searchBy{
+    font-size:0.8em;
+    height:auto;
+    margin-bottom:0px;
+}
 @media screen and (min-width:325px){ /*xs*/
     img {
         max-width: 300px;
         max-height: 300px;
     }
+    select.form-control.searchBy{
+        font-size:0.9em;
+    }
+    label.explicit{
+        font-size:0.9em;
+        padding:auto;
+        margin:auto;
+        height:auto;
+    }
+    input.explicit#explicit{
+        height:0.8em;
+        width:0.7em;
+        margin-right:0.3em;
+    }
 }
 /*@media screen and (min-width:992px){ /*md*/
 
 /*}*/
+@media screen and (min-width:450px){ /*xs-sm*/
+    select.form-control.searchBy{
+        font-size:1.2em;
+    }
+    label.explicit{
+        font-size:1.2em;
+        padding:auto;
+        margin:auto;
+        height:auto;
+    }
+    input.explicit#explicit{
+        height:0.9em;
+        width:0.8em;
+        margin-right:0.3em;
+    }
+    td{
+        font-size:1.2em;
+    }
+    .help-block{
+        font-size:1.1em;
+    }
+
+}
 @media screen and (min-width:768px){ /*sm*/
     img {
         max-width: 630px;
         max-height: 630px;
     }
+    select.form-control.searchBy{
+        font-size:1.2em;
+    }
+    label.explicit{
+        font-size:1.4em;
+        padding:auto;
+        margin:auto;
+        height:auto;
+    }
+    td{
+        font-size:1.4em;
+    }
+    .help-block{
+        font-size:1.3em;
+    }
+
 }
 @media screen and (min-width:992px){ /*md*/
+    select.form-control.searchBy{
+        font-size:1.4em;
+    }
+    label.explicit{
+        font-size:1.4em;
+        padding:auto;
+        margin:auto;
+        height:auto;
+    }
+    td{
+        font-size:1.5em;
+    }
+    .help-block{
+        font-size:1.4em;
+    }
 
 }
 @media screen and (min-width:1200px){ /*lg*/
+    select.form-control.searchBy{
+        font-size:1.5em;
+    }
+    label.explicit{
+        font-size:1.5em;
+        padding:auto;
+        margin:auto;
+        height:auto;
+    }
+    td{
+        font-size:1.6em;
+    }
+    .help-block{
+        font-size:1.4em;
+    }
 
 }
