@@ -7,9 +7,9 @@ var genreUrl = 'genre%3A*';
 var url2 = '*&type=track';
 var searchBy;
 var myApp = angular.module('myApp', [])
-var albumlg = '/img/placeholder.png';
-var albummd = '/img/placeholder.png';
-var albumsm = '/img/placeholder.png';
+var albumlg = 'img/placeholder.png';
+var albummd = 'img/placeholder.png';
+var albumsm = 'img/placeholder.png';
 var myCtrl = myApp.controller('myCtrl', function($scope, $http, $window) {
     //$scope.albumArt =
     $scope.width = 0;

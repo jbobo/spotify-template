@@ -1,7 +1,19 @@
-body {
+body#my {
   /*padding:10px;
   padding-top:0px;*/
   padding:1em;
+  /*background-color:#E3D6C6;*/
+}
+form{
+    /*background-color:#E3D6C6;*/
+}
+div.help-block{
+    padding-left:0.5em;
+    padding-top:0.2em;
+}
+div#table{
+    /*background-color: #E3D6C6;*/
+    border-radius:1em;
 }
 img {
     max-width: 75px;
